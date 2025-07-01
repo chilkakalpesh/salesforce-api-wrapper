@@ -1,5 +1,5 @@
 {
-  "name": "salesforce-api-wrapper",
+  "name": "@chilkakalpesh/salesforce-api-wrapper",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
