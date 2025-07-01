@@ -49,7 +49,7 @@ src/
 ```js
 //package.json
   "dependencies": {
-    "salesforce-api-wrapper": "1.1.3"
+    "@chilkakalpesh/salesforce-api-wrapper": "1.1.3"
   }
 ```
 
@@ -62,7 +62,7 @@ src/
       // Copy Cypress env vars into process.env
       Object.assign(process.env, config.env);
 
-      const { default: salesforceTasks } = await import('salesforce-api-wrapper/src/tasks/cypressTasks.js');
+      const { default: salesforceTasks } = await import('@chilkakalpesh/salesforce-api-wrapper/src/tasks/cypressTasks.js');
       on("task", salesforceTasks); // register wrapper functions as Cypress tasks
     }
   }
@@ -101,10 +101,32 @@ src/
   });
 ```
 
+### Example usage in E2E Tests repo
+
+```js
+//Creating an account
+  let accountDetails = {
+    "Account_Status__c": "active",
+    "Channel_Type__c": "REA",
+    "Name": "sf-agency-" + faker.person.firstName() + Cypress.dayjs(),
+    "State_Region__c": "Dubai",
+    "Type_of_Company__c": "Agency"
+  }
+
+  cy.sf('createRecord', {
+    token: Cypress.env('SALESFORCE_TOKEN'),
+    objectType: "account",
+    body: accountDetails
+  }).then(
+    (accountResponse) => {
+      expect(accountResponse.status).to.be.equal(201);
+    });
+```
+
 ### Direct API Use Example
 
 ```js
-import * as sf from 'salesforce-api-wrapper';
+import * as sf from '@chilkakalpesh/salesforce-api-wrapper';
 
 cy.task('createLead', ({ token, body }) =>
   sf.createRecord({ token, objectType: 'Lead', body })
@@ -118,15 +140,6 @@ Make sure to have Salesforce env variables in your test repo:
 ```bash
 .env.example
 ```
-
 Make sure to configure your Salesforce credentials accordingly.
-
-## 🔗 Example Token Fetch
-
-```js
-import { getAccessToken } from 'salesforce-api-wrapper/src/auth/getAccessToken.js';
-
-const token = await getAccessToken();
-```
 
 ---
