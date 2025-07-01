@@ -1,5 +1,7 @@
 # Salesforce API Wrapper
 
+![📦 Publish](https://github.com/chilkakalpesh/salesforce-api-wrapper/actions/workflows/publish.yml/badge.svg)
+
 Reusable Node.js module for interacting with Salesforce API.  
 Intended for use in E2E test automation (e.g. Cypress).
 
